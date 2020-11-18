@@ -11,9 +11,7 @@ const battleship = () => {
   // Following the key at name, are the keys shipCount and gameBoard. Players are allowed 4 ships. 
   // Currently, there are no ships assigned to each player's gameBoard.
   let player1 = {
-    name: prompt(
-      `We need to know the first commander's name. What is the first commander's name?`
-    ),
+    name: '',
     shipCount: 4,
     gameBoard: [
       [0, 0, 0, 0],
@@ -23,9 +21,7 @@ const battleship = () => {
     ],
   };
   let player2 = {
-    name: prompt(
-      `We need to know the second commander's name. What is the second commander's name?`
-    ),
+    name: '',
     shipCount: 4,
     gameBoard: [
       [0, 0, 0, 0],
@@ -69,6 +65,8 @@ const battleship = () => {
   );
   // The game begins by looping between two players
   if (startTheGame === "yes") {
+    player1.name = prompt(`We need to know the first commander's name. What is the first commander's name?`);
+    player2.name = prompt(`We We need to know the second commander's name. What is the second commander's name?`)
     // Assuming the players have agreed to play, we set a loop for 10 rounds
     for (var i = 0; i < 10; i++) {
       // Before each loop is iterated, we set edge cases for the loop. In this
@@ -81,11 +79,13 @@ const battleship = () => {
       // has lost all of their ships. If true, an alert shows to indicate which player
       // has lost and then returns a message indicating the winner and ending the loop.
       if (player1.shipCount === 0) {
-        alert(`${player1}! All our ships are destroyed! You've dishonored your country!`);
-        return `Commander ${player2} has emerged victorious! Ol' Davey Jones bows in your honor.`;
+        alert(`Commander ${player1.name}! All our ships are destroyed! You've dishonored your country!`);
+        alert(`Commander ${player2.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
+        break;
       } else if (player2.shipCount === 0) {
-        alert(`${player2}! All our ships are destroyed! You've dishonored your country!`);
-        return `Commander ${player1} has emerged victorious! Ol' Davey Jones bows in your honor.`;
+        alert(`Commander ${player2.name}! All our ships are destroyed! You've dishonored your country!`);
+        alert(`Commander ${player1.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
+        break;
       }
       // Player one moves first. Players are given a choice to select a number between 0 and 3,
       // including 0 and 3. X and Y coordinates are separated into two prompts.
@@ -104,7 +104,7 @@ const battleship = () => {
           player1YcoordinateStrike
         ] === 1
       ) {
-        player2.gameBoard[player2XcoordinateStrike][player2YcoordinateStrike] = 0;
+        player2.gameBoard[player1XcoordinateStrike][player1YcoordinateStrike] = 0;
         player2.shipCount--;
         alert(
           `Commander ${player1.name}! Reports indicate we've made a direct hit!`
@@ -125,7 +125,7 @@ const battleship = () => {
           player2YcoordinateStrike
         ] === 1
       ) {
-        player2.gameBoard[player1XcoordinateStrike][player1YcoordinateStrike] = 0;
+        player1.gameBoard[player2XcoordinateStrike][player2YcoordinateStrike] = 0;
         player1.shipCount--;
         alert(
           `Commander ${player2.name}! Reports indicate we've made a direct hit!`
