@@ -87,7 +87,7 @@ const battleship = () => {
         alert(`Commander ${player1.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
         break;
       } else if (player1.shipCount === 0 && player2.shipCount === 0) {
-        alert(`Neither command has any ships remaining! Enjoy the sharks!`);
+        alert(`Neither commander has any ships remaining! Enjoy the sharks!`);
       }
       // Player one moves first. Players are given a choice to select a number between 0 and 3,
       // including 0 and 3. X and Y coordinates are separated into two prompts.
