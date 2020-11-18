@@ -86,9 +86,12 @@ const battleship = () => {
         alert(`Commander ${player2.name}! All our ships are destroyed! You've dishonored your country!`);
         alert(`Commander ${player1.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
         break;
+      } else if (player1.shipCount === 0 && player2.shipCount === 0) {
+        alert(`Neither command has any ships remaining! Enjoy the sharks!`);
       }
       // Player one moves first. Players are given a choice to select a number between 0 and 3,
       // including 0 and 3. X and Y coordinates are separated into two prompts.
+      if (player1.shipCount !== 0 && player2.shipCount !== 0) {
       let player1XcoordinateStrike = prompt(
         `Commander ${player1.name}, you will now enter your coordinates. Enter your X-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
       );
@@ -133,10 +136,11 @@ const battleship = () => {
       } else {
         alert(`Reports indicate a complete miss, Commander ${player2.name}!'`);
       }
+      
       // Recall that total rounds were 10. Once the first loop is iterated,
       // the number of rounds is decremented from the totalAllowedPlayerAttemps variable.
       totalAllowedPlayerAttempts--;
-
+      }
       // In the case of a player wanting to quit mid game, after each player chooses coordinates
       // and messages are given, either hit or miss, players have a choice to decide to continue
       // to play or to quit, so that they can break from the loop themselves. 
