@@ -61,7 +61,7 @@ const battleship = () => {
   let totalAllowedPlayerAttempts = 10;
   // The following prompt briefs players the name of the game and its purpose.
   let startTheGame = prompt(
-    `Man your battle stations! This is Battleship! \nLatest intelligence reports indicate that there are 4 enemy ships in your 4 x 4 territory. \nCommanders - As we are running on limited offensive capability, your orders are to destroy all enemy ships with 10 strikes or fewer. \nAre the players ready to start the game? \nType 'yes' or 'no'. Do not include the quotations`
+    `This is BattleShip! Man your battle stations!\nLatest intelligence reports indicate that there are 4 enemy ships in your 4 x 4 territory. \nCommanders - As we are running on limited offensive capability, your orders are to destroy all enemy ships with 10 strikes or fewer. \nAre the players ready to start the game? \nType 'yes' or 'no'. Do not include the quotations`
   );
   // The game begins by looping between two players
   if (startTheGame === "yes") {
