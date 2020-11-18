@@ -174,14 +174,18 @@ const battleship = () => {
       );
       if (quitPrompt === "yes") {
         continue;
-      } else {
+      } else if (quitPrompt === "no") {
         return "No problem! Hope you enjoyed!";
+      } else {
+        return `You didn't type a 'yes' or 'no' without quotations. \nJust in case you didn't want to play anymore, we quit the game for you! Hope you enjoyed!`;
       }
     }
     // Another quit opportunity, but this is the initial quit choice given when a player decides
     // if they are ready or not to enter into the game.
   } else if (startTheGame === "no") {
     return `OK! We can always play another time! Have a great day!`;
+  } else {
+    return `You didn't type a 'yes' or 'no' without quotations. \nJust in case you didn't want to play anymore, we quit the game for you! Hope you enjoyed!`;
   }
 };
 
