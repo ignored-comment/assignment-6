@@ -8,10 +8,10 @@ and players are limited to 4 ships.
 // The game is defined as a function as follows:
 const battleship = () => {
   // Player 1 and 2 objects are defined, with the "name" key stored as input from a prompt message.
-  // Following the key at name, are the keys shipCount and gameBoard. Players are allowed 4 ships. 
+  // Following the key at name, are the keys shipCount and gameBoard. Players are allowed 4 ships.
   // Currently, there are no ships assigned to each player's gameBoard.
   let player1 = {
-    name: '',
+    name: "",
     shipCount: 4,
     gameBoard: [
       [0, 0, 0, 0],
@@ -21,7 +21,7 @@ const battleship = () => {
     ],
   };
   let player2 = {
-    name: '',
+    name: "",
     shipCount: 4,
     gameBoard: [
       [0, 0, 0, 0],
@@ -44,14 +44,14 @@ const battleship = () => {
       let xCoordinate = Math.floor(Math.random() * 4);
       let yCoordinate = Math.floor(Math.random() * 4);
       // Check to see if the 2-dimensional array in the player 1 or 2 object
-      // at the key of gameBoard is set to 0 and therefore, without a ship, 
+      // at the key of gameBoard is set to 0 and therefore, without a ship,
       // and if it is, assign a ship at that location.
       if (firstOrSecondPlayer.gameBoard[xCoordinate][yCoordinate] === 0) {
         firstOrSecondPlayer.gameBoard[xCoordinate][yCoordinate] = 1;
         i++;
-        }
       }
     }
+  };
   // randomShipGenerator function is called with both player1 and player2.
   randomShipGenerator(player1);
   console.log(player1.gameBoard);
@@ -59,19 +59,25 @@ const battleship = () => {
   console.log(player2.gameBoard);
   // For the sake of brevity, we've limited the number of rounds for both players to 10.
   let totalAllowedPlayerAttempts = 10;
-  // The following prompt briefs players the name of the game and its purpose. 
+  // The following prompt briefs players the name of the game and its purpose.
   let startTheGame = prompt(
     `Man your battle stations! This is Battleship! \nLatest intelligence reports indicate that there are 4 enemy ships in your 4 x 4 territory. \nCommanders - As we are running on limited offensive capability, your orders are to destroy all enemy ships with 10 strikes or fewer. \nAre the players ready to start the game? \nType 'yes' or 'no'. Do not include the quotations`
   );
   // The game begins by looping between two players
   if (startTheGame === "yes") {
-    player1.name = prompt(`We need to know the first commander's name. What is the first commander's name?`);
-    player2.name = prompt(`We We need to know the second commander's name. What is the second commander's name?`)
+    player1.name = prompt(
+      `We need to know the first commander's name. What is the first commander's name?`
+    );
+    player2.name = prompt(
+      `We We need to know the second commander's name. What is the second commander's name?`
+    );
     // Assuming the players have agreed to play, we set a loop for 10 rounds
     for (var i = 0; i < 10; i++) {
       // Before each loop is iterated, we set edge cases for the loop. In this
       // case, the edge cases check to see if totalAllowedPlayerAttempts (rounds)
       // does not exceed 10. If it does, the game returns a message and ends the loop.
+      // The final else if statement includes an alert in case both players sink all 
+      // ships at the same time. 
       if (totalAllowedPlayerAttempts === 0) {
         return "Game over! Neither Commander managed to sink all of the enemy ships! \nCommanders, you will be court-martialed for disobeying a direct order!";
       }
@@ -79,71 +85,90 @@ const battleship = () => {
       // has lost all of their ships. If true, an alert shows to indicate which player
       // has lost and then returns a message indicating the winner and ending the loop.
       if (player1.shipCount === 0) {
-        alert(`Commander ${player1.name}! All our ships are destroyed! You've dishonored your country!`);
-        alert(`Commander ${player2.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
+        alert(
+          `Commander ${player1.name}! All our ships are destroyed! You've dishonored your country!`
+        );
+        alert(
+          `Commander ${player2.name} has emerged victorious! Ol' Davey Jones bows in your honor.`
+        );
         break;
       } else if (player2.shipCount === 0) {
-        alert(`Commander ${player2.name}! All our ships are destroyed! You've dishonored your country!`);
-        alert(`Commander ${player1.name} has emerged victorious! Ol' Davey Jones bows in your honor.`);
+        alert(
+          `Commander ${player2.name}! All our ships are destroyed! You've dishonored your country!`
+        );
+        alert(
+          `Commander ${player1.name} has emerged victorious! Ol' Davey Jones bows in your honor.`
+        );
         break;
       } else if (player1.shipCount === 0 && player2.shipCount === 0) {
         alert(`Neither commander has any ships remaining! Enjoy the sharks!`);
       }
       // Player one moves first. Players are given a choice to select a number between 0 and 3,
       // including 0 and 3. X and Y coordinates are separated into two prompts.
+      // The if statement ensures that both players must not have 0 ships, else the loop
+      // does not continue to run.
       if (player1.shipCount !== 0 && player2.shipCount !== 0) {
-      let player1XcoordinateStrike = prompt(
-        `Commander ${player1.name}, you will now enter your coordinates. Enter your X-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
-      );
-      let player1YcoordinateStrike = prompt(
-        `Order received, Commander. Enter your Y-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
-      );
-      // If player's coordinates match a ship at the either player 1 or player 2 object at the 
-      // key of gameBoard, then a hit alert is given. Then the chosen X/Y coordinates, if it was
-      // a hit, is rewritten to be zero, so that false positives are not displayed. For example,
-      // ships destroyed must be erased from board. So we assign the now empty X/Y coordinate to 0.
-      if (
-        player2.gameBoard[player1XcoordinateStrike][
-          player1YcoordinateStrike
-        ] === 1
-      ) {
-        player2.gameBoard[player1XcoordinateStrike][player1YcoordinateStrike] = 0;
-        player2.shipCount--;
-        alert(
-          `Commander ${player1.name}! Reports indicate we've made a direct hit!`
+        let player1XcoordinateStrike = prompt(
+          `Commander ${player1.name}, you will now enter your coordinates. Enter your X-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
         );
-        // Else nothing is rewritten and player is given a miss message.
-      } else {
-        alert(`Reports indicate a complete miss, Commander ${player1.name}!'`);
-      }
-      // Player two moves second.
-      let player2XcoordinateStrike = prompt(
-        `Commander ${player2.name}, you will now enter your coordinates. Enter your X-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
-      );
-      let player2YcoordinateStrike = prompt(
-        `Order received, Commander. Enter your Y-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
-      );
-      if (
-        player1.gameBoard[player2XcoordinateStrike][
-          player2YcoordinateStrike
-        ] === 1
-      ) {
-        player1.gameBoard[player2XcoordinateStrike][player2YcoordinateStrike] = 0;
-        player1.shipCount--;
-        alert(
-          `Commander ${player2.name}! Reports indicate we've made a direct hit!`
+        let player1YcoordinateStrike = prompt(
+          `Order received, Commander. Enter your Y-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
         );
-      } else {
-        alert(`Reports indicate a complete miss, Commander ${player2.name}!'`);
-      }
-      
-      // Recall that total rounds were 10. Once the first loop is iterated,
-      // the number of rounds is decremented from the totalAllowedPlayerAttemps variable.
-      totalAllowedPlayerAttempts--;
+        // If player's coordinates match a ship at the either player 1 or player 2 object at the
+        // key of gameBoard, then a hit alert is given. Then the chosen X/Y coordinates, if it was
+        // a hit, is rewritten to be zero, so that false positives are not displayed. For example,
+        // ships destroyed must be erased from board. So we assign the now empty X/Y coordinate to 0.
+        if (
+          player2.gameBoard[player1XcoordinateStrike][
+            player1YcoordinateStrike
+          ] === 1
+        ) {
+          player2.gameBoard[player1XcoordinateStrike][
+            player1YcoordinateStrike
+          ] = 0;
+          player2.shipCount--;
+          alert(
+            `Commander ${player1.name}! Reports indicate we've made a direct hit!`
+          );
+          // Else nothing is rewritten at the key of gameBoard of either player
+          // and player is given a miss message.
+        } else {
+          alert(
+            `Reports indicate a complete miss, Commander ${player1.name}!'`
+          );
+        }
+        // Player two moves second.
+        let player2XcoordinateStrike = prompt(
+          `Commander ${player2.name}, you will now enter your coordinates. Enter your X-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
+        );
+        let player2YcoordinateStrike = prompt(
+          `Order received, Commander. Enter your Y-coordinate: (Choose 0, 1, 2, or 3. Do not include quotes.)`
+        );
+        if (
+          player1.gameBoard[player2XcoordinateStrike][
+            player2YcoordinateStrike
+          ] === 1
+        ) {
+          player1.gameBoard[player2XcoordinateStrike][
+            player2YcoordinateStrike
+          ] = 0;
+          player1.shipCount--;
+          alert(
+            `Commander ${player2.name}! Reports indicate we've made a direct hit!`
+          );
+        } else {
+          alert(
+            `Reports indicate a complete miss, Commander ${player2.name}!'`
+          );
+        }
+
+        // Recall that total rounds were 10. Once the first loop is iterated,
+        // the number of rounds is decremented from the totalAllowedPlayerAttemps variable.
+        totalAllowedPlayerAttempts--;
       }
       // In the case of a player wanting to quit mid game, after each player chooses coordinates
       // and messages are given, either hit or miss, players have a choice to decide to continue
-      // to play or to quit, so that they can break from the loop themselves. 
+      // to play or to quit, so that they can break from the loop themselves.
       let quitPrompt = prompt(
         `(Do you want to continue the game? Type 'yes' or 'no', without quotations.)`
       );
